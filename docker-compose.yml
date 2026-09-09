@@ -1,0 +1,7 @@
+services:
+  turbina-landing:
+    build: .
+    container_name: turbina-landing
+    restart: unless-stopped
+    ports:
+      - "8180:80"
