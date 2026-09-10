@@ -3,736 +3,699 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Turbina Soluções — Soluções digitais para o seu negócio</title>
-  <meta name="description" content="Gestão simplificada para personal trainers, barbearias, academias e muito mais. Conheça os produtos Turbina.">
+  <title>Turbina Soluções — Ecossistema de gestão para o seu negócio</title>
+  <meta name="description" content="Soluções digitais para personal trainers, barbearias, academias e muito mais. Gestão simplificada, resultados reais.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ============================================
-       DESIGN SYSTEM — Turbina Soluções
+       TURBINA SOLUÇÕES — DESIGN SYSTEM
+       Unique brand identity, not tied to any product
        ============================================ */
     :root {
-      /* Background */
-      --bg: #0D1117;
-      --surface: #151B23;
-      --surface-2: #1C2330;
+      /* Brand — unique to Turbina Soluções */
+      --brand: #A78BFA;
+      --brand-dim: rgba(167,139,250,0.12);
+      --brand-glow: rgba(167,139,250,0.06);
+
+      /* Surfaces */
+      --bg: #09090B;
+      --surface: #111113;
+      --surface-2: #18181B;
+      --surface-3: #1F1F23;
 
       /* Borders */
-      --border: #2A3441;
-      --border-subtle: #1E2A36;
-      --border-active: #3A4A5A;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --border-active: rgba(255,255,255,0.18);
 
       /* Text */
-      --text: #E8EDF3;
-      --text-secondary: #8B95A1;
-      --text-muted: #5A6474;
+      --text: #FAFAFA;
+      --text-2: #A1A1AA;
+      --text-3: #52525B;
 
-      /* Accents per product */
+      /* Product accents */
       --fit: #22C55E;
-      --fit-hover: #16A34A;
       --fit-bg: rgba(34,197,94,0.08);
-
-      --barber: #8B5E34;
-      --barber-hover: #A06B3A;
-      --barber-bg: rgba(139,94,52,0.08);
-
-      --academia: #22C55E;
-      --academia-hover: #16A34A;
-      --academia-bg: rgba(34,197,94,0.08);
-
-      --mercado: #6366F1;
-      --mercado-hover: #4F46E5;
-      --mercado-bg: rgba(99,102,241,0.08);
-
-      /* Spacing */
-      --space-xs: 0.25rem;
-      --space-sm: 0.5rem;
-      --space-md: 1rem;
-      --space-lg: 1.5rem;
-      --space-xl: 2rem;
-      --space-2xl: 3rem;
-      --space-3xl: 4rem;
-      --space-4xl: 6rem;
+      --barber: #D4A574;
+      --barber-bg: rgba(212,165,116,0.08);
+      --academia: #34D399;
+      --academia-bg: rgba(52,211,153,0.08);
+      --mercado: #818CF8;
+      --mercado-bg: rgba(129,140,248,0.08);
 
       /* Radius */
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 20px;
+      --r-xl: 28px;
 
       /* Font */
       --font: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
-    /* ============================================
-       RESET & BASE
-       ============================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
     a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 3px; }
 
-    /* ============================================
-       LAYOUT
-       ============================================ */
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 var(--space-xl);
-    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
 
     /* ============================================
        NAVBAR
        ============================================ */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: var(--space-md) 0;
-      transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;
-      border-bottom: 1px solid transparent;
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    .navbar.scrolled {
-      background: rgba(13,17,23,0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom-color: var(--border-subtle);
+    .nav.stuck {
+      background: rgba(9,9,11,0.8);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid var(--border);
     }
-
-    .navbar .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em; }
+    .nav-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--brand);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px rgba(167,139,250,0.3);
     }
-
-    .navbar-brand {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      font-weight: 700;
-      font-size: 1.05rem;
-    }
-
-    .navbar-logo {
-      width: 32px;
-      height: 32px;
-      background: var(--fit);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .navbar-links {
-      display: flex;
-      align-items: center;
-      gap: var(--space-xl);
-      list-style: none;
-    }
-
-    .navbar-links a {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
+    .nav-menu { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+    .nav-menu a {
+      font-size: 0.875rem; color: var(--text-2); font-weight: 500;
       transition: color 0.2s;
-      font-weight: 500;
     }
-
-    .navbar-links a:hover { color: var(--text); }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.55rem 1.2rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.875rem;
-      font-weight: 600;
-      font-family: var(--font);
-      cursor: pointer;
+    .nav-menu a:hover { color: var(--text); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1.1rem; border-radius: var(--r-sm);
+      background: var(--brand); color: #09090B;
+      font-size: 0.85rem; font-weight: 600;
       transition: all 0.2s;
-      border: none;
-      white-space: nowrap;
+      box-shadow: 0 0 20px rgba(167,139,250,0.2);
     }
-
-    .btn-primary {
-      background: var(--fit);
-      color: var(--bg);
-    }
-    .btn-primary:hover { background: var(--fit-hover); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--border-active); background: var(--surface); }
-
-    .btn-lg {
-      padding: 0.75rem 1.8rem;
-      font-size: 1rem;
-      border-radius: var(--radius-md);
-    }
+    .nav-cta:hover { box-shadow: 0 0 30px rgba(167,139,250,0.4); transform: translateY(-1px); }
 
     /* ============================================
        HERO
        ============================================ */
     .hero {
-      padding-top: 10rem;
-      padding-bottom: var(--space-4xl);
+      position: relative;
+      padding: 10rem 0 8rem;
       text-align: center;
+      overflow: hidden;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-sm);
-      padding: 0.35rem 0.9rem;
-      background: var(--surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 100px;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-xl);
+    /* Animated gradient orbs */
+    .hero-bg {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none;
     }
-
-    .hero-badge .dot {
-      width: 6px;
-      height: 6px;
+    .orb {
+      position: absolute;
       border-radius: 50%;
-      background: var(--fit);
-      animation: pulse-dot 2s ease-in-out infinite;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 20s ease-in-out infinite;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(167,139,250,0.3), transparent 70%);
+      top: -15%; left: 50%; transform: translateX(-50%);
+      animation-duration: 25s;
+    }
+    .orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(34,197,94,0.15), transparent 70%);
+      top: 20%; right: -5%;
+      animation-duration: 18s; animation-delay: -5s;
+    }
+    .orb-3 {
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(129,140,248,0.15), transparent 70%);
+      bottom: 10%; left: -5%;
+      animation-duration: 22s; animation-delay: -10s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -20px) scale(1.05); }
+      50% { transform: translate(-20px, 30px) scale(0.95); }
+      75% { transform: translate(15px, 15px) scale(1.02); }
     }
 
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+    /* Grid pattern overlay */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black, transparent);
+      -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black, transparent);
+      pointer-events: none;
     }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.3rem 1rem 0.3rem 0.4rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; font-size: 0.8rem; color: var(--text-2);
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-pill-dot {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--brand-dim);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-pill-dot svg { width: 12px; height: 12px; }
 
     .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      margin-bottom: var(--space-lg);
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: clamp(2.8rem, 6.5vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+      margin-left: auto; margin-right: auto;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--brand), #C4B5FD, var(--brand));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 6s ease infinite;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
-    .hero h1 .highlight {
-      background: linear-gradient(135deg, var(--fit), #34D399);
+    .hero-sub {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--text-2);
+      max-width: 540px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+      animation: fadeUp 0.8s ease 0.2s both;
+    }
+
+    .hero-btns {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.8s ease 0.3s both;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.5rem; border-radius: var(--r-sm);
+      font-size: 0.9rem; font-weight: 600; font-family: var(--font);
+      cursor: pointer; transition: all 0.25s; border: none;
+    }
+    .btn-fill {
+      background: var(--brand); color: #09090B;
+      box-shadow: 0 0 25px rgba(167,139,250,0.25);
+    }
+    .btn-fill:hover { box-shadow: 0 0 40px rgba(167,139,250,0.4); transform: translateY(-2px); }
+    .btn-ghost {
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--border-hover); background: var(--surface-2); }
+
+    /* Trust strip */
+    .hero-trust {
+      display: flex; align-items: center; justify-content: center;
+      gap: 2.5rem; margin-top: 4rem;
+      animation: fadeUp 0.8s ease 0.5s both;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; color: var(--text-3); font-weight: 500;
+    }
+    .trust-item svg { opacity: 0.4; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================
+       PRODUCTS SECTION
+       ============================================ */
+    .products { padding: 8rem 0; position: relative; }
+    .products::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .sec-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--brand);
+      margin-bottom: 1rem;
+    }
+    .sec-label::before {
+      content: ''; width: 8px; height: 8px; border-radius: 2px;
+      background: var(--brand); opacity: 0.6;
+    }
+    .sec-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 1rem;
+    }
+    .sec-desc {
+      color: var(--text-2); font-size: 1.05rem;
+      max-width: 500px; line-height: 1.7; margin-bottom: 4rem;
+    }
+
+    /* Product cards — asymmetric grid */
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.25rem;
+    }
+    .prod-card {
+      position: relative; background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .prod-card::after {
+      content: ''; position: absolute; inset: 0;
+      border-radius: var(--r-lg);
+      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--card-glow, transparent), transparent 40%);
+      opacity: 0; transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .prod-card:hover::after { opacity: 1; }
+    .prod-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    /* Card sizes — asymmetric layout */
+    .prod-card.lg { grid-column: span 7; padding: 2.5rem; }
+    .prod-card.sm { grid-column: span 5; }
+    .prod-card.md { grid-column: span 6; }
+
+    /* Product icon */
+    .prod-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem; position: relative; z-index: 1;
+    }
+    .prod-icon svg { width: 28px; height: 28px; }
+
+    .prod-name {
+      font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em;
+      margin-bottom: 0.5rem; position: relative; z-index: 1;
+    }
+    .prod-desc {
+      color: var(--text-2); font-size: 0.92rem; line-height: 1.7;
+      margin-bottom: 2rem; flex: 1; position: relative; z-index: 1;
+    }
+
+    .prod-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; z-index: 1;
+    }
+    .prod-badge {
+      font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.7rem;
+      border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .badge-live { background: rgba(34,197,94,0.1); color: #22C55E; }
+    .badge-soon { background: rgba(255,255,255,0.05); color: var(--text-3); }
+    .badge-dev { background: var(--mercado-bg); color: var(--mercado); }
+
+    .prod-cta {
+      font-size: 0.85rem; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      transition: gap 0.25s;
+    }
+    .prod-card:hover .prod-cta { gap: 0.6rem; }
+    .prod-cta-arrow { transition: transform 0.25s; }
+    .prod-card:hover .prod-cta-arrow { transform: translateX(3px); }
+    .prod-cta-off { color: var(--text-3); pointer-events: none; }
+
+    /* Card accent lines */
+    .prod-card .accent-line {
+      position: absolute; top: 0; left: 2rem; right: 2rem;
+      height: 1px; opacity: 0; transition: opacity 0.3s;
+    }
+    .prod-card:hover .accent-line { opacity: 1; }
+
+    /* ============================================
+       ECOSYSTEM / HOW IT WORKS
+       ============================================ */
+    .eco { padding: 8rem 0; position: relative; }
+    .eco::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .eco-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin-top: 4rem;
+    }
+    .eco-step {
+      padding: 2rem; border-radius: var(--r-lg);
+      background: var(--surface); border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .eco-step:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+    .eco-num {
+      font-size: 0.7rem; font-weight: 700; color: var(--brand);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 1rem; opacity: 0.7;
+    }
+    .eco-step h3 {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .eco-step p { color: var(--text-2); font-size: 0.9rem; line-height: 1.7; }
+
+    /* ============================================
+       STATS / SOCIAL PROOF
+       ============================================ */
+    .stats {
+      padding: 6rem 0; position: relative;
+    }
+    .stats::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; text-align: center;
+    }
+    .stat-item {}
+    .stat-num {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1; margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--text), var(--text-2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
-    .hero p {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      max-width: 520px;
-      margin: 0 auto var(--space-2xl);
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-md);
-      flex-wrap: wrap;
-    }
-
-    /* ============================================
-       PRODUCTS
-       ============================================ */
-    .products {
-      padding: var(--space-4xl) 0;
-    }
-
-    .section-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: var(--space-md);
-    }
-
-    .section-title {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: var(--space-sm);
-    }
-
-    .section-desc {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      max-width: 480px;
-      margin-bottom: var(--space-3xl);
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-lg);
-    }
-
-    .product-card {
-      position: relative;
-      background: var(--surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: var(--space-2xl);
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--card-accent, var(--border));
-      opacity: 0;
-      transition: opacity 0.25s;
-    }
-
-    .product-card:hover {
-      border-color: var(--card-accent, var(--border-active));
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-    }
-
-    .product-card:hover::before { opacity: 1; }
-
-    .product-card--fit { --card-accent: var(--fit); }
-    .product-card--barber { --card-accent: var(--barber); }
-    .product-card--academia { --card-accent: var(--academia); }
-    .product-card--mercado { --card-accent: var(--mercado); }
-
-    .product-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      margin-bottom: var(--space-lg);
-      background: var(--card-bg, var(--surface-2));
-    }
-
-    .product-card--fit .product-icon { background: var(--fit-bg); }
-    .product-card--barber .product-icon { background: var(--barber-bg); }
-    .product-card--academia .product-icon { background: var(--academia-bg); }
-    .product-card--mercado .product-icon { background: var(--mercado-bg); }
-
-    .product-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: var(--space-xs);
-    }
-
-    .product-desc {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin-bottom: var(--space-lg);
-      flex: 1;
-    }
-
-    .product-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .product-status {
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.2rem 0.65rem;
-      border-radius: 100px;
-    }
-
-    .status-live {
-      background: rgba(34,197,94,0.12);
-      color: var(--fit);
-    }
-
-    .status-soon {
-      background: rgba(139,149,161,0.1);
-      color: var(--text-muted);
-    }
-
-    .status-dev {
-      background: var(--mercado-bg);
-      color: var(--mercado);
-    }
-
-    .product-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--card-accent, var(--text-secondary));
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: gap 0.2s;
-    }
-
-    .product-card:hover .product-link { gap: 0.55rem; }
-
-    .product-link-arrow { transition: transform 0.2s; }
-    .product-card:hover .product-link-arrow { transform: translateX(2px); }
-
-    .product-link-disabled {
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-
-    /* ============================================
-       WHY TURBINA
-       ============================================ */
-    .why {
-      padding: var(--space-4xl) 0;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-2xl);
-      margin-top: var(--space-3xl);
-    }
-
-    .why-item h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: var(--space-sm);
-    }
-
-    .why-item p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.7;
-    }
+    .stat-label { color: var(--text-3); font-size: 0.85rem; font-weight: 500; }
 
     /* ============================================
        CTA
        ============================================ */
-    .cta {
-      padding: var(--space-4xl) 0;
+    .cta { padding: 8rem 0; position: relative; }
+    .cta::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
-
     .cta-box {
-      background: var(--surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: var(--space-4xl) var(--space-2xl);
-      text-align: center;
       position: relative;
-      overflow: hidden;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-xl); padding: 5rem 3rem;
+      text-align: center; overflow: hidden;
     }
-
-    .cta-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 200px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--fit), transparent);
+    .cta-glow {
+      position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(circle, rgba(167,139,250,0.08), transparent 70%);
+      pointer-events: none;
     }
-
     .cta-box h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: var(--space-md);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      margin-bottom: 1rem; position: relative; z-index: 1;
     }
-
     .cta-box p {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      margin-bottom: var(--space-xl);
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+      color: var(--text-2); font-size: 1.05rem;
+      max-width: 420px; margin: 0 auto 2.5rem;
+      line-height: 1.7; position: relative; z-index: 1;
     }
-
-    .cta-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-md);
-      flex-wrap: wrap;
+    .cta-btns {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; flex-wrap: wrap;
+      position: relative; z-index: 1;
     }
 
     /* ============================================
        FOOTER
        ============================================ */
-    .footer {
-      padding: var(--space-3xl) 0 var(--space-xl);
-      border-top: 1px solid var(--border-subtle);
+    .foot { padding: 4rem 0 2rem; border-top: 1px solid var(--border); }
+    .foot-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: 3rem; margin-bottom: 3rem;
     }
-
-    .footer-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: var(--space-lg);
+    .foot-brand { max-width: 280px; }
+    .foot-brand-name {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem;
     }
-
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      font-weight: 600;
-      font-size: 0.9rem;
+    .foot-brand-desc { color: var(--text-3); font-size: 0.85rem; line-height: 1.6; }
+    .foot-cols { display: flex; gap: 4rem; }
+    .foot-col h4 {
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-3); margin-bottom: 1rem;
     }
-
-    .footer-brand .navbar-logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      gap: var(--space-xl);
-      list-style: none;
-    }
-
-    .footer-links a {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--text-secondary); }
-
-    .footer-copy {
-      text-align: center;
-      margin-top: var(--space-xl);
-      padding-top: var(--space-lg);
-      border-top: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      font-size: 0.8rem;
+    .foot-col ul { list-style: none; }
+    .foot-col li { margin-bottom: 0.6rem; }
+    .foot-col a { font-size: 0.875rem; color: var(--text-2); transition: color 0.2s; }
+    .foot-col a:hover { color: var(--text); }
+    .foot-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 2rem; border-top: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--text-3);
     }
 
     /* ============================================
-       ANIMATIONS
+       SCROLL ANIMATIONS
        ============================================ */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
 
     @media (prefers-reduced-motion: reduce) {
-      .fade-up { opacity: 1; transform: none; transition: none; }
-      .hero-badge .dot { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .orb { animation: none; }
+      .hero h1 .gradient { animation: none; }
     }
 
     /* ============================================
        RESPONSIVE
        ============================================ */
-    @media (max-width: 768px) {
-      .navbar-links { display: none; }
-
-      .hero { padding-top: 8rem; }
-
-      .products-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .why-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
-      }
-
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .footer-links { justify-content: center; }
+    @media (max-width: 1024px) {
+      .prod-card.lg { grid-column: span 12; }
+      .prod-card.sm { grid-column: span 12; }
+      .prod-card.md { grid-column: span 12; }
+      .eco-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
     }
-
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .hero { padding: 8rem 0 5rem; }
+      .hero-trust { gap: 1.5rem; flex-wrap: wrap; }
+      .foot-cols { gap: 2rem; }
+      .foot-top { flex-direction: column; }
+    }
     @media (max-width: 480px) {
-      .hero h1 { font-size: 1.8rem; }
-      .hero p { font-size: 1rem; }
-      .btn-lg { padding: 0.65rem 1.4rem; font-size: 0.9rem; }
-      .product-card { padding: var(--space-xl); }
+      .hero h1 { font-size: 2.2rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 2rem 1rem; }
+      .cta-box { padding: 3rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar" id="navbar">
-    <div class="container">
-      <a href="#" class="navbar-brand">
-        <div class="navbar-logo">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
+  <nav class="nav" id="nav">
+    <div class="wrap">
+      <a href="#" class="nav-brand">
+        <div class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#09090B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
           </svg>
         </div>
         Turbina Soluções
       </a>
-      <ul class="navbar-links">
+      <ul class="nav-menu">
         <li><a href="#produtos">Produtos</a></li>
-        <li><a href="#por-que">Por que a Turbina</a></li>
+        <li><a href="#como-funciona">Como funciona</a></li>
         <li><a href="#contato">Contato</a></li>
-        <li><a href="#contato" class="btn btn-primary">Fale conosco</a></li>
+        <li><a href="#contato" class="nav-cta">Começar agora</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-badge fade-up">
-        <span class="dot"></span>
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-grid"></div>
+    <div class="wrap hero-content">
+      <div class="hero-pill">
+        <span class="hero-pill-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </span>
         Plataforma em crescimento
       </div>
-      <h1 class="fade-up">Gestão simples.<br><span class="highlight">Resultados reais.</span></h1>
-      <p class="fade-up">Soluções digitais feitas para quem trabalha com serviços — personal trainers, barbearias, academias e muito mais.</p>
-      <div class="hero-actions fade-up">
-        <a href="#produtos" class="btn btn-primary btn-lg">Conheça nossos produtos</a>
-        <a href="#contato" class="btn btn-outline btn-lg">Fale conosco</a>
+      <h1>Gestão que <span class="gradient">acelera</span> o seu negócio</h1>
+      <p class="hero-sub">Um ecossistema de ferramentas digitais feito para quem trabalha com serviços. Simplifique, organize e cresça.</p>
+      <div class="hero-btns">
+        <a href="#produtos" class="btn btn-fill">Conheça os produtos
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="#contato" class="btn btn-ghost">Fale conosco</a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+          Sem cartão de crédito
+        </span>
+        <span class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Dados protegidos
+        </span>
+        <span class="trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Suporte humano
+        </span>
       </div>
     </div>
   </section>
 
   <!-- PRODUCTS -->
   <section class="products" id="produtos">
-    <div class="container">
-      <p class="section-label fade-up">Produtos</p>
-      <h2 class="section-title fade-up">Feito para o seu nicho</h2>
-      <p class="section-desc fade-up">Cada produto da Turbina foi pensado para resolver problemas reais de um segmento específico.</p>
+    <div class="wrap">
+      <div class="sec-label reveal">Produtos</div>
+      <h2 class="sec-title reveal">Um ecossistema completo</h2>
+      <p class="sec-desc reveal">Cada produto resolve um problema real de um segmento. Juntos, formam uma plataforma de gestão completa.</p>
 
-      <div class="products-grid">
-
-        <!-- Turbina Fit -->
-        <a href="https://turbinafit.turbinasolucoes.com.br" target="_blank" rel="noopener" class="product-card product-card--fit fade-up">
-          <div class="product-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--fit)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6.5 6.5h11"/><path d="M6.5 17.5h11"/><path d="M3 6.5a3.5 3.5 0 0 1 3.5-3.5"/><path d="M3 17.5a3.5 3.5 0 0 0 3.5 3.5"/><path d="M21 6.5a3.5 3.5 0 0 0-3.5-3.5"/><path d="M21 17.5a3.5 3.5 0 0 1-3.5 3.5"/>
-            </svg>
+      <div class="prod-grid">
+        <!-- Turbina Fit — Large card -->
+        <a href="https://turbinafit.turbinasolucoes.com.br" target="_blank" rel="noopener" class="prod-card lg reveal" style="--card-glow: rgba(34,197,94,0.04)">
+          <div class="accent-line" style="background: linear-gradient(90deg, transparent, var(--fit), transparent)"></div>
+          <div class="prod-icon" style="background: var(--fit-bg)">
+            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#22C55E"/><path d="M10 13 H54 V23 H38 V52 H26 V23 H10 Z" fill="#09090B"/></svg>
           </div>
-          <h3 class="product-name">Turbina Fit</h3>
-          <p class="product-desc">Gestão completa para personal trainers. Agendamento, pagamentos, treinos e comunicação com alunos em um só lugar.</p>
-          <div class="product-footer">
-            <span class="product-status status-live">Disponível</span>
-            <span class="product-link">Acessar <span class="product-link-arrow">→</span></span>
+          <h3 class="prod-name">Turbina Fit</h3>
+          <p class="prod-desc">Gestão completa para personal trainers. Agendamento de aulas, controle de pagamentos, prescrição de treinos e comunicação direta com alunos — tudo em uma plataforma.</p>
+          <div class="prod-foot">
+            <span class="prod-badge badge-live">Disponível</span>
+            <span class="prod-cta" style="color: var(--fit)">Acessar <span class="prod-cta-arrow">→</span></span>
           </div>
         </a>
 
-        <!-- Turbina Barber -->
-        <a href="https://turbinabarber.turbinasolucoes.com.br" target="_blank" rel="noopener" class="product-card product-card--barber fade-up">
-          <div class="product-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--barber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 3v18"/><path d="M18 3v18"/><path d="M6 8h12"/><path d="M6 16h12"/><path d="M6 3c0 0 0 5 0 5"/>
-            </svg>
+        <!-- Turbina Barber — Small card -->
+        <a href="https://turbinabarber.turbinasolucoes.com.br" target="_blank" rel="noopener" class="prod-card sm reveal reveal-d1" style="--card-glow: rgba(212,165,116,0.04)">
+          <div class="accent-line" style="background: linear-gradient(90deg, transparent, var(--barber), transparent)"></div>
+          <div class="prod-icon" style="background: var(--barber-bg)">
+            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#8B5E34"/><circle cx="24" cy="34" r="9" fill="none" stroke="#09090B" stroke-width="3.5"/><circle cx="40" cy="34" r="9" fill="none" stroke="#09090B" stroke-width="3.5"/><line x1="22" y1="18" x2="22" y2="26" stroke="#09090B" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="18" x2="42" y2="26" stroke="#09090B" stroke-width="3" stroke-linecap="round"/></svg>
           </div>
-          <h3 class="product-name">Turbina Barber</h3>
-          <p class="product-desc">Sistema de gestão para barbearias. Controle de agenda, fila de espera, caixa e fidelidade de clientes.</p>
-          <div class="product-footer">
-            <span class="product-status status-live">Disponível</span>
-            <span class="product-link">Acessar <span class="product-link-arrow">→</span></span>
+          <h3 class="prod-name">Turbina Barber</h3>
+          <p class="prod-desc">Agenda, fila de espera, caixa e fidelidade de clientes para barbearias.</p>
+          <div class="prod-foot">
+            <span class="prod-badge badge-live">Disponível</span>
+            <span class="prod-cta" style="color: var(--barber)">Acessar <span class="prod-cta-arrow">→</span></span>
           </div>
         </a>
 
         <!-- Turbina Academia -->
-        <div class="product-card product-card--academia fade-up">
-          <div class="product-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--academia)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="15" rx="2"/><path d="M17 2l-5 5-5-5"/>
-            </svg>
+        <div class="prod-card md reveal reveal-d2" style="--card-glow: rgba(52,211,153,0.04)">
+          <div class="accent-line" style="background: linear-gradient(90deg, transparent, var(--academia), transparent)"></div>
+          <div class="prod-icon" style="background: var(--academia-bg)">
+            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#34D399"/><path d="M18 48V20h6v28h-6z" fill="#09090B"/><path d="M30 48V28h6v20h-6z" fill="#09090B"/><path d="M42 48V16h6v32h-6z" fill="#09090B"/><rect x="14" y="48" width="40" height="4" rx="1" fill="#09090B"/></svg>
           </div>
-          <h3 class="product-name">Turbina Academia</h3>
-          <p class="product-desc">Gestão completa para academias e fitness. Planos, matrículas, acesso e relatórios — tudo integrado.</p>
-          <div class="product-footer">
-            <span class="product-status status-soon">Em breve</span>
-            <span class="product-link product-link-disabled">Em breve</span>
+          <h3 class="prod-name">Turbina Academia</h3>
+          <p class="prod-desc">Planos, matrículas, acesso e relatórios para academias e centros de fitness.</p>
+          <div class="prod-foot">
+            <span class="prod-badge badge-soon">Em breve</span>
+            <span class="prod-cta prod-cta-off">Em breve</span>
           </div>
         </div>
 
         <!-- Turbina Mercado -->
-        <div class="product-card product-card--mercado fade-up">
-          <div class="product-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mercado)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
-            </svg>
+        <div class="prod-card md reveal reveal-d3" style="--card-glow: rgba(129,140,248,0.04)">
+          <div class="accent-line" style="background: linear-gradient(90deg, transparent, var(--mercado), transparent)"></div>
+          <div class="prod-icon" style="background: var(--mercado-bg)">
+            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#818CF8"/><path d="M16 24L20 16H44L48 24" stroke="#09090B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="24" width="36" height="26" rx="3" fill="#09090B"/><rect x="22" y="30" width="20" height="4" rx="1" fill="#818CF8"/><rect x="22" y="38" width="12" height="4" rx="1" fill="#818CF8"/></svg>
           </div>
-          <h3 class="product-name">Turbina Mercado</h3>
-          <p class="product-desc">Marketplace para produtos e serviços. Catálogo, pedidos, entregas e gestão de vendedores.</p>
-          <div class="product-footer">
-            <span class="product-status status-dev">Em desenvolvimento</span>
-            <span class="product-link product-link-disabled">Em breve</span>
+          <h3 class="prod-name">Turbina Mercado</h3>
+          <p class="prod-desc">Marketplace para produtos e serviços. Catálogo, pedidos e gestão de vendedores.</p>
+          <div class="prod-foot">
+            <span class="prod-badge badge-dev">Em desenvolvimento</span>
+            <span class="prod-cta prod-cta-off">Em breve</span>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- WHY TURBINA -->
-  <section class="why" id="por-que">
-    <div class="container">
-      <p class="section-label fade-up">Por que a Turbina</p>
-      <h2 class="section-title fade-up">Feito por quem entende do assunto</h2>
+  <!-- HOW IT WORKS -->
+  <section class="eco" id="como-funciona">
+    <div class="wrap">
+      <div class="sec-label reveal">Como funciona</div>
+      <h2 class="sec-title reveal">Simples de começar</h2>
+      <p class="sec-desc reveal">Em três passos, você já está gerenciando o seu negócio com a Turbina.</p>
 
-      <div class="why-grid">
-        <div class="why-item fade-up">
-          <h3>Gestão simplificada</h3>
-          <p>Interface limpa e direta. Sem funcionalidades desnecessárias — só o que você precisa pra rodar o negócio no piloto automático.</p>
+      <div class="eco-grid">
+        <div class="eco-step reveal">
+          <div class="eco-num">01</div>
+          <h3>Escolha o produto</h3>
+          <p>Cada ferramenta é feita para um segmento. Escolha a que faz sentido para o seu negócio.</p>
         </div>
-        <div class="why-item fade-up">
-          <h3>Feito para o seu nicho</h3>
-          <p>Cada produto é construído pensando nas necessidades reais de um segmento. Não é solução genérica — é ferramenta profissional.</p>
+        <div class="eco-step reveal reveal-d1">
+          <div class="eco-num">02</div>
+          <h3>Configure em minutos</h3>
+          <p>Sem setup complicado. Cadastre seus dados, personalize e comece a usar na hora.</p>
         </div>
-        <div class="why-item fade-up">
-          <h3>Suporte humano</h3>
-          <p>Quando você precisa de ajuda, fala com gente que entende o sistema. Sem robôs, sem filas infinitas.</p>
+        <div class="eco-step reveal reveal-d2">
+          <div class="eco-num">03</div>
+          <h3>Gerencie com facilidade</h3>
+          <p>Agenda, pagamentos, clientes e relatórios — tudo em um painel limpo e rápido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Produtos no ecossistema</div>
+        </div>
+        <div class="stat-item reveal reveal-d1">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Cloud e mobile-first</div>
+        </div>
+        <div class="stat-item reveal reveal-d2">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Instalação necessária</div>
+        </div>
+        <div class="stat-item reveal reveal-d3">
+          <div class="stat-num">24h</div>
+          <div class="stat-label">Suporte humano</div>
         </div>
       </div>
     </div>
@@ -740,61 +703,95 @@
 
   <!-- CTA -->
   <section class="cta" id="contato">
-    <div class="container">
-      <div class="cta-box fade-up">
+    <div class="wrap">
+      <div class="cta-box reveal">
+        <div class="cta-glow"></div>
         <h2>Pronto para turbinar?</h2>
         <p>Fale com a gente e descubra como a Turbina pode simplificar a gestão do seu negócio.</p>
-        <div class="cta-actions">
-          <a href="https://wa.me/5500000000000" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Falar no WhatsApp</a>
-          <a href="mailto:contato@turbinasolucoes.com.br" class="btn btn-outline btn-lg">Enviar e-mail</a>
+        <div class="cta-btns">
+          <a href="https://wa.me/5500000000000" target="_blank" rel="noopener" class="btn btn-fill">Falar no WhatsApp
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="mailto:contato@turbinasolucoes.com.br" class="btn btn-ghost">Enviar e-mail</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <div class="navbar-logo">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
-            </svg>
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <div class="foot-brand-name">
+            <div class="nav-icon" style="width:24px;height:24px;border-radius:6px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#09090B" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            Turbina Soluções
           </div>
-          Turbina Soluções
+          <p class="foot-brand-desc">Soluções digitais para quem trabalha com serviços. Gestão simplificada, resultados reais.</p>
         </div>
-        <ul class="footer-links">
-          <li><a href="#produtos">Produtos</a></li>
-          <li><a href="#por-que">Sobre</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
+        <div class="foot-cols">
+          <div class="foot-col">
+            <h4>Produtos</h4>
+            <ul>
+              <li><a href="https://turbinafit.turbinasolucoes.com.br" target="_blank">Turbina Fit</a></li>
+              <li><a href="https://turbinabarber.turbinasolucoes.com.br" target="_blank">Turbina Barber</a></li>
+              <li><a href="#produtos">Turbina Academia</a></li>
+              <li><a href="#produtos">Turbina Mercado</a></li>
+            </ul>
+          </div>
+          <div class="foot-col">
+            <h4>Empresa</h4>
+            <ul>
+              <li><a href="#como-funciona">Como funciona</a></li>
+              <li><a href="#contato">Contato</a></li>
+              <li><a href="#">Termos de uso</a></li>
+              <li><a href="#">Privacidade</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <p class="footer-copy">© 2026 Turbina Soluções. Todos os direitos reservados.</p>
+      <div class="foot-bottom">
+        <span>© 2026 Turbina Soluções. Todos os direitos reservados.</span>
+        <span>Feito com dedication 🇧🇷</span>
+      </div>
     </div>
   </footer>
 
-  <!-- SCRIPTS -->
   <script>
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
+    // Navbar scroll
+    const nav = document.getElementById('nav');
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('stuck', window.scrollY > 40);
+          ticking = false;
+        });
+        ticking = true;
+      }
     }, { passive: true });
 
-    // Fade-up on scroll
-    const observer = new IntersectionObserver((entries) => {
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    // Card mouse glow effect
+    document.querySelectorAll('.prod-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+        card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+      });
+    });
   </script>
 
 </body>
