@@ -80,6 +80,73 @@ para ser entendido, ele morre no favicon. Blades grossas + vazio generoso = sobr
 
 ---
 
+## 1-B. Versão dedicada — GPT Image (ChatGPT)
+
+`gpt-image-1` não aceita negative prompt nem flags: as exclusões vão **em prosa**
+("Do not include..."), e ele obedece bem. Também é multilíngue — aceita português
+sem perda. Mantenha em inglês só por consistência.
+
+Cole isto no ChatGPT **em uma mensagem só**, junto com a trava do fim:
+
+```
+Create exactly one single square logo mark image for a software company.
+
+Subject: one abstract symbol inspired by a turbine impeller — six identical
+curved blades radiating symmetrically from a solid circular hub. Thick uniform
+strokes. Generous empty space between the blades so the shape stays instantly
+readable at tiny sizes.
+
+Color: the symbol is one single flat lavender purple, exactly #A78BFA. No other
+color anywhere in the symbol.
+
+Background: one flat solid dark charcoal, exactly #0D1117. Completely uniform —
+no vignette, no radial glow, no texture, no subtle gradient.
+
+Composition: perfectly centered on a square 1:1 canvas. The symbol occupies about
+70% of the width, leaving roughly 15% empty padding on all four sides. Strictly
+symmetrical across both axes.
+
+Style: flat 2D vector illustration, like a professional SVG logo. Crisp edges,
+geometric precision, solid fills.
+
+Do not include any text, letters, words, numbers, or typography of any kind.
+Do not include gradients, shading, highlights, 3D, bevel, emboss, drop shadow,
+glow, an outer outline around the shape, texture, grain, or noise. Do not include
+a watermark, a signature, a logo mockup, a business card, a device frame, a
+presentation board, a grid or collage of variations, or any decorative background
+element.
+
+One single logo mark on the solid background. Nothing else in the frame.
+
+This is a favicon source asset: it must remain perfectly legible when scaled down
+to 16x16 pixels.
+
+Generate exactly the image described above. Do not rewrite, summarize, or "improve"
+this prompt, and do not ask clarifying questions — generate the image now.
+```
+
+### As três travas que só o GPT Image precisa
+
+**"Do not rewrite this prompt"** — o ChatGPT tende a resumir/reescrever o pedido
+antes de gerar e perde as exclusões. É a última linha do bloco acima, não remova.
+
+**"exactly one single"** + **"no grid or collage"** — o comportamento padrão dele é
+devolver grade 2x2 de variações e um mockup em camiseta/cartão de visita. Essas duas
+frases cortam isso.
+
+**"square 1:1 canvas"** — sem isso ele entrega paisagem. No app do ChatGPT vale
+escrever "quadrada" também.
+
+Transparência: o ChatGPT não dá canal alfa confiável. Via API, `gpt-image-1` tem
+`background: "transparent"` + `output_format: "png"` — aí sai com alfa real. Fora
+isso, peça fundo chapado e o fundo é removido depois.
+
+Sobre texto: o `gpt-image-1` é bem melhor com tipografia que o DALL·E 3 — o lockup
+fica viável como referência. Ainda erra acento; o "Õ" de "SOLUÇÕES" é o ponto de
+falha típico. Confira letra por letra.
+
+---
+
 ## 2. PROMPT DO LOGO COMPLETO (lockup)
 
 Use quando quiser **uma referência visual** de como símbolo + nome se relacionam.
@@ -146,6 +213,8 @@ um logo. Estilização alta enche de detalhe e destrói o uso em 16px.
 **DALL·E 3 / GPT Image / Gemini**
 Aceita português, mas mantenha em inglês pela consistência do vocabulário visual.
 Peça explicitamente: *"apenas o símbolo, não gere variações em grade"*.
+Para GPT Image, use o bloco pronto da **seção 1-B** — ele é mais específico do que
+adaptar o prompt base.
 
 **Ideogram** — o melhor para o lockup com texto (acentos inclusos no v3).
 Ainda assim, confira "SOLUÇÕES" letra por letra.
