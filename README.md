@@ -82,7 +82,10 @@ ssh ubuntu@144.22.173.196 'cd ~/turbina-landing && docker compose up -d --build 
 
 # 3. Verificar
 curl -sI https://turbinasolucoes.com.br/ | head -1
-curl -s -o /dev/null -w '%{http_code} %{content_type}\n' https://turbinasolucoes.com.br/favicon.ico
+curl -s -o /dev/null -w '%{http_code} %{content_type}\n' 'https://turbinasolucoes.com.br/favicon.ico?v=2'
+# conferir que a URL limpa do HTML serve o arquivo NOVO (nao a copia do edge):
+curl -s -o /dev/null -w 'servido=%{size_download} local=%{size_upload}\n' 'https://turbinasolucoes.com.br/favicon-32.png?v=2'
+stat -c 'local=%s' html/favicon-32.png
 ```
 
 Rollback: antes de cada deploy, a imagem atual é tagueada como
@@ -120,4 +123,16 @@ Depois, com Pillow: recortar `og.png` → `og-image.png`; `icon.png` →
 - O Cloudflare injeta um bloco gerenciado no topo do `robots.txt`; o conteúdo do
   repositório é anexado ao final.
 - HTML sai com `Cache-Control: no-cache` — atualização é imediata.
-- Ícones usam nome fixo, por isso ficam com cache curto (`7d`, `must-revalidate`).
+- Ícones usam nome fixo, por isso ficam com cache curto (`1h`, `must-revalidate`) **e são
+  versionados no HTML** (`/favicon.ico?v=2`). Ao mexer em qualquer ícone, **suba o `?v=` nos três
+  HTMLs** (`index.html`, `termos.html`, `privacidade.html`); senão o edge do Cloudflare segue
+  servindo a cópia antiga por dias.
+- **O cache do Cloudflare não é o cache do navegador, e um sobrevive ao outro.** A zona está com
+  *Browser Cache TTL* em 4h, que sobrescreve o `max-age` do nginx. Resultado: com a origem já
+  atualizada, o edge continua entregando o arquivo velho. Para flagrar isso, compare o
+  `content-length` da resposta **limpa** com o do arquivo local e olhe `cf-cache-status` + `Age` —
+  `HIT` com `Age` grande é cópia velha. Se precisar forçar agora, purgue aquela URL no painel do
+  Cloudflare (Caching → Configuration → Purge by URL).
+- **NUNCA valide asset com `?cb=<timestamp>`.** Cada query string é uma chave de cache nova, então o
+  Cloudflare sempre vai à origem e devolve o arquivo certo — foi assim que uma primeira verificação
+  "passou" com o favicon antigo preso no edge. Valide sempre com a URL exata que o HTML usa.
