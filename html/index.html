@@ -3,19 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0D1117">
+  <link rel="canonical" href="https://turbinasolucoes.com.br/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <title>Turbina Soluções — Ecossistema de gestão para o seu negócio</title>
   <meta name="description" content="Soluções digitais para personal trainers, barbearias, academias e muito mais. Gestão simplificada, resultados reais.">
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Turbina Soluções — Ecossistema de gestão para o seu negócio">
   <meta property="og:description" content="Soluções digitais para personal trainers, barbearias, academias e muito mais. Gestão simplificada, resultados reais.">
-  <meta property="og:url" content="https://turbinasolucoes.com.br">
+  <meta property="og:url" content="https://turbinasolucoes.com.br/">
   <meta property="og:site_name" content="Turbina Soluções">
   <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://turbinasolucoes.com.br/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Turbina Soluções — gestão que acelera o seu negócio">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Turbina Soluções — Ecossistema de gestão para o seu negócio">
   <meta name="twitter:description" content="Soluções digitais para personal trainers, barbearias, academias e muito mais.">
+  <meta name="twitter:image" content="https://turbinasolucoes.com.br/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -31,30 +42,31 @@
       --brand-glow: rgba(167,139,250,0.06);
 
       /* Surfaces */
-      --bg: #09090B;
-      --surface: #111113;
-      --surface-2: #18181B;
-      --surface-3: #1F1F23;
+      --bg: #0D1117;
+      --surface: #151B23;
+      --surface-2: #1C2330;
+      --surface-3: #232B38;
 
       /* Borders */
-      --border: rgba(255,255,255,0.06);
-      --border-hover: rgba(255,255,255,0.12);
-      --border-active: rgba(255,255,255,0.18);
+      --border: #1E2A36;
+      --border-hover: #2A3441;
+      --border-active: #3A4A5A;
 
       /* Text */
-      --text: #FAFAFA;
-      --text-2: #A1A1AA;
-      --text-3: #71717A;
+      --text: #E8EDF3;
+      --text-2: #8B95A1;
+      --text-3: #5A6474;
 
       /* Product accents */
       --fit: #22C55E;
       --fit-bg: rgba(34,197,94,0.08);
-      --barber: #D4A574;
+      --barber: #8B5E34;
+      --barber-soft: #D4A574;
       --barber-bg: rgba(212,165,116,0.08);
-      --academia: #34D399;
-      --academia-bg: rgba(52,211,153,0.08);
-      --mercado: #818CF8;
-      --mercado-bg: rgba(129,140,248,0.08);
+      --academia: #22C55E;
+      --academia-bg: rgba(34,197,94,0.08);
+      --mercado: #6366F1;
+      --mercado-bg: rgba(99,102,241,0.08);
 
       /* Radius */
       --r-sm: 8px;
@@ -90,7 +102,7 @@
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .nav.stuck {
-      background: rgba(9,9,11,0.8);
+      background: rgba(13,17,23,0.8);
       backdrop-filter: blur(20px) saturate(1.4);
       -webkit-backdrop-filter: blur(20px) saturate(1.4);
       border-bottom: 1px solid var(--border);
@@ -112,7 +124,7 @@
     .nav-cta {
       display: inline-flex; align-items: center; gap: 0.4rem;
       padding: 0.5rem 1.1rem; border-radius: var(--r-sm);
-      background: var(--brand); color: #09090B;
+      background: var(--brand); color: #0D1117;
       font-size: 0.85rem; font-weight: 600;
       transition: all 0.2s;
       box-shadow: 0 0 20px rgba(167,139,250,0.2);
@@ -238,7 +250,7 @@
       cursor: pointer; transition: all 0.25s; border: none;
     }
     .btn-fill {
-      background: var(--brand); color: #09090B;
+      background: var(--brand); color: #0D1117;
       box-shadow: 0 0 25px rgba(167,139,250,0.25);
     }
     .btn-fill:hover { box-shadow: 0 0 40px rgba(167,139,250,0.4); transform: translateY(-2px); }
@@ -542,9 +554,9 @@
   <!-- NAVBAR -->
   <nav class="nav" id="nav">
     <div class="wrap">
-      <a href="#" class="nav-brand">
+      <a href="/" class="nav-brand">
         <div class="nav-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#09090B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1117" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
           </svg>
         </div>
@@ -611,7 +623,7 @@
         <a href="https://turbinafit.turbinasolucoes.com.br" target="_blank" rel="noopener" class="prod-card lg reveal" style="--card-glow: rgba(34,197,94,0.04)">
           <div class="accent-line" style="background: linear-gradient(90deg, transparent, var(--fit), transparent)"></div>
           <div class="prod-icon" style="background: var(--fit-bg)">
-            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#22C55E"/><path d="M10 13 H54 V23 H38 V52 H26 V23 H10 Z" fill="#09090B"/></svg>
+            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#22C55E"/><path d="M10 13 H54 V23 H38 V52 H26 V23 H10 Z" fill="#0D1117"/></svg>
           </div>
           <h3 class="prod-name">Turbina Fit</h3>
           <p class="prod-desc">Gestão completa para personal trainers. Agendamento de aulas, controle de pagamentos, prescrição de treinos e comunicação direta com alunos — tudo em uma plataforma.</p>
@@ -625,21 +637,21 @@
         <a href="https://turbinabarber.turbinasolucoes.com.br" target="_blank" rel="noopener" class="prod-card sm reveal reveal-d1" style="--card-glow: rgba(212,165,116,0.04)">
           <div class="accent-line" style="background: linear-gradient(90deg, transparent, var(--barber), transparent)"></div>
           <div class="prod-icon" style="background: var(--barber-bg)">
-            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#8B5E34"/><circle cx="24" cy="34" r="9" fill="none" stroke="#09090B" stroke-width="3.5"/><circle cx="40" cy="34" r="9" fill="none" stroke="#09090B" stroke-width="3.5"/><line x1="22" y1="18" x2="22" y2="26" stroke="#09090B" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="18" x2="42" y2="26" stroke="#09090B" stroke-width="3" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#8B5E34"/><circle cx="24" cy="34" r="9" fill="none" stroke="#0D1117" stroke-width="3.5"/><circle cx="40" cy="34" r="9" fill="none" stroke="#0D1117" stroke-width="3.5"/><line x1="22" y1="18" x2="22" y2="26" stroke="#0D1117" stroke-width="3" stroke-linecap="round"/><line x1="42" y1="18" x2="42" y2="26" stroke="#0D1117" stroke-width="3" stroke-linecap="round"/></svg>
           </div>
           <h3 class="prod-name">Turbina Barber</h3>
           <p class="prod-desc">Agenda, fila de espera, caixa e fidelidade de clientes para barbearias.</p>
           <div class="prod-foot">
             <span class="prod-badge badge-live">Disponível</span>
-            <span class="prod-cta" style="color: var(--barber)">Acessar <span class="prod-cta-arrow">→</span></span>
+            <span class="prod-cta" style="color: var(--barber-soft)">Acessar <span class="prod-cta-arrow">→</span></span>
           </div>
         </a>
 
         <!-- Turbina Academia -->
-        <div class="prod-card md reveal reveal-d2" style="--card-glow: rgba(52,211,153,0.04)">
+        <div class="prod-card md reveal reveal-d2" style="--card-glow: rgba(34,197,94,0.04)">
           <div class="accent-line" style="background: linear-gradient(90deg, transparent, var(--academia), transparent)"></div>
           <div class="prod-icon" style="background: var(--academia-bg)">
-            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#34D399"/><path d="M18 48V20h6v28h-6z" fill="#09090B"/><path d="M30 48V28h6v20h-6z" fill="#09090B"/><path d="M42 48V16h6v32h-6z" fill="#09090B"/><rect x="14" y="48" width="40" height="4" rx="1" fill="#09090B"/></svg>
+            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#22C55E"/><path d="M18 48V20h6v28h-6z" fill="#0D1117"/><path d="M30 48V28h6v20h-6z" fill="#0D1117"/><path d="M42 48V16h6v32h-6z" fill="#0D1117"/><rect x="14" y="48" width="40" height="4" rx="1" fill="#0D1117"/></svg>
           </div>
           <h3 class="prod-name">Turbina Academia</h3>
           <p class="prod-desc">Planos, matrículas, acesso e relatórios para academias e centros de fitness.</p>
@@ -650,10 +662,10 @@
         </div>
 
         <!-- Turbina Mercado -->
-        <div class="prod-card md reveal reveal-d3" style="--card-glow: rgba(129,140,248,0.04)">
+        <div class="prod-card md reveal reveal-d3" style="--card-glow: rgba(99,102,241,0.04)">
           <div class="accent-line" style="background: linear-gradient(90deg, transparent, var(--mercado), transparent)"></div>
           <div class="prod-icon" style="background: var(--mercado-bg)">
-            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#818CF8"/><path d="M16 24L20 16H44L48 24" stroke="#09090B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="24" width="36" height="26" rx="3" fill="#09090B"/><rect x="22" y="30" width="20" height="4" rx="1" fill="#818CF8"/><rect x="22" y="38" width="12" height="4" rx="1" fill="#818CF8"/></svg>
+            <svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="14" fill="#6366F1"/><path d="M16 24L20 16H44L48 24" stroke="#0D1117" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="24" width="36" height="26" rx="3" fill="#0D1117"/><rect x="22" y="30" width="20" height="4" rx="1" fill="#6366F1"/><rect x="22" y="38" width="12" height="4" rx="1" fill="#6366F1"/></svg>
           </div>
           <h3 class="prod-name">Turbina Mercado</h3>
           <p class="prod-desc">Marketplace para produtos e serviços. Catálogo, pedidos e gestão de vendedores.</p>
@@ -725,7 +737,7 @@
         <h2>Pronto para turbinar?</h2>
         <p>Fale com a gente e descubra como a Turbina pode simplificar a gestão do seu negócio.</p>
         <div class="cta-btns">
-          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener" class="btn btn-fill">Falar no WhatsApp
+          <a href="https://wa.me/5522997084278" target="_blank" rel="noopener" class="btn btn-fill">Falar no WhatsApp
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
           <a href="mailto:contato@turbinasolucoes.com.br" class="btn btn-ghost">Enviar e-mail</a>
@@ -741,7 +753,7 @@
         <div class="foot-brand">
           <div class="foot-brand-name">
             <div class="nav-icon" style="width:24px;height:24px;border-radius:6px">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#09090B" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0D1117" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
             </div>
             Turbina Soluções
           </div>
@@ -762,8 +774,8 @@
             <ul>
               <li><a href="#como-funciona">Como funciona</a></li>
               <li><a href="#contato">Contato</a></li>
-              <li><a href="#">Termos de uso</a></li>
-              <li><a href="#">Privacidade</a></li>
+              <li><a href="/termos.html">Termos de uso</a></li>
+              <li><a href="/privacidade.html">Privacidade</a></li>
             </ul>
           </div>
         </div>

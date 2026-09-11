@@ -1,0 +1,5 @@
+# Turbina Soluções
+User-agent: *
+Allow: /
+
+Sitemap: https://turbinasolucoes.com.br/sitemap.xml

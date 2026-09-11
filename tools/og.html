@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{font-family:'Inter',system-ui,sans-serif;background:#0D1117;color:#E8EDF3;position:relative}
+  .orb{position:absolute;border-radius:50%;filter:blur(90px)}
+  .o1{width:620px;height:620px;top:-280px;left:-120px;background:radial-gradient(circle,rgba(167,139,250,.30),transparent 70%)}
+  .o2{width:420px;height:420px;bottom:-200px;right:-80px;background:radial-gradient(circle,rgba(99,102,241,.20),transparent 70%)}
+  .grid{position:absolute;inset:0;background-image:
+      linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse 70% 70% at 30% 40%,black,transparent);
+    -webkit-mask-image:radial-gradient(ellipse 70% 70% at 30% 40%,black,transparent)}
+  .edge{position:absolute;left:0;right:0;top:0;height:3px;
+    background:linear-gradient(90deg,transparent,#A78BFA,transparent);opacity:.8}
+  .c{position:relative;z-index:2;height:100%;padding:64px 76px;display:flex;flex-direction:column;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:16px}
+  .bi{width:60px;height:60px;border-radius:16px;background:#A78BFA;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 44px rgba(167,139,250,.42)}
+  .bn{font-size:27px;font-weight:700;letter-spacing:-.02em}
+  h1{font-size:78px;font-weight:800;line-height:1.03;letter-spacing:-.042em;max-width:940px}
+  h1 .g{background:linear-gradient(135deg,#A78BFA,#C4B5FD,#A78BFA);-webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;background-clip:text}
+  .sub{margin-top:22px;font-size:27px;line-height:1.5;color:#8B95A1;max-width:800px;font-weight:400}
+  .foot{display:flex;align-items:center;justify-content:space-between}
+  .chips{display:flex;gap:12px}
+  .chip{display:flex;align-items:center;gap:9px;padding:11px 22px;border-radius:100px;
+    background:#151B23;border:1px solid #1E2A36;font-size:19px;font-weight:600;color:#E8EDF3}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .url{font-size:21px;font-weight:600;color:#5A6474;letter-spacing:.01em}
+</style>
+</head>
+<body>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="grid"></div><div class="edge"></div>
+  <div class="c">
+    <div>
+      <div class="brand">
+        <div class="bi">
+          <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="#0D1117" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#0D1117" stroke="none"/>
+            <path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="bn">Turbina Solu&ccedil;&otilde;es</div>
+      </div>
+      <div style="height:52px"></div>
+      <h1>Gest&atilde;o que <span class="g">acelera</span><br>o seu neg&oacute;cio</h1>
+      <div class="sub">Um ecossistema de ferramentas digitais para quem trabalha com servi&ccedil;os.</div>
+    </div>
+    <div class="foot">
+      <div class="chips">
+        <div class="chip"><span class="dot" style="background:#22C55E"></span>Turbina Fit</div>
+        <div class="chip"><span class="dot" style="background:#8B5E34"></span>Turbina Barber</div>
+      </div>
+      <div class="url">turbinasolucoes.com.br</div>
+    </div>
+  </div>
+</body>
+</html>
