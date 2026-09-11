@@ -1,38 +1,40 @@
 # Turbina Soluções — Prompts para gerar símbolo, logo e favicon
 
-## 0. O que a marca realmente é
+> Previews renderizados em `tools/logo-drafts/` (`preview-finalistas.png`).
+> Rascunhos em SVG: `HA.svg`, `HB.svg`, `HC.svg`, `HF.svg`.
 
-Antes de qualquer prompt: **a identidade da Turbina não é uma turbina.** É um
-**glifo de camadas empilhadas** sobre um tile quadrado arredondado.
+## 0. O que foi testado (leia antes de gerar)
 
-Está em `html/icon.svg`, e o mesmo `<path>` aparece no navbar (linha 560) e no
-rodapé (linha 756) do `index.html`:
+Duas rodadas de rascunho, avaliadas rasterizadas de verdade em 16px e 32px:
 
-```
-<rect width="64" height="64" rx="14" fill="#A78BFA"/>
-<path d="M12 2L2 7l10 5 10-5-10-5z" fill="#0D1117"/>        <- losango solido em cima
-<path d="M2 17l10 5 10-5" stroke="#0D1117" stroke-width="2.5"/>   <- chevron 1
-<path d="M2 12l10 5 10-5" stroke="#0D1117" stroke-width="2.5"/>   <- chevron 2
-```
-
-Traduzindo: **losango sólido em cima, dois chevrons de espessura idêntica
-embaixo**, tudo em `#0D1117` sobre tile `#A78BFA` com raio de canto ≈22% do lado.
-
-Os quatro produtos repetem exatamente o mesmo sistema — tile `rx=14`, glifo escuro
-`#0D1117`, e só mudam a cor do tile e o desenho:
-
-| Produto | Cor do tile | Glifo |
+| Tentativa | O que deu | 16px |
 |---|---|---|
-| Turbina (marca-mãe) | `#A78BFA` | camadas empilhadas |
-| TurbinaFit | `#22C55E` | letra T |
-| TurbinaBarber | `#8B5E34` | tesoura |
-| Turbina Academia | `#22C55E` | barras de gráfico |
-| Turbina Mercado | `#6366F1` | sacola de compras |
+| Rotor 5 pás (gerado por IA) | Parece hélice de ventilador / roda de cassino | Borrão |
+| Rotor 3 pás, cunha | Parece "Y" torto | Borrão |
+| Rotor 3 pás, reto | Parece hélice de lancha / estrela ninja | Borrão |
+| Rotor com anel externo | Parece grade de ventilador ou relógio | Borrão |
+| Virgulas / crescentes | Parece símbolo de radiação | Borrão |
+| **Monograma T** | **Lê como letra T na hora** | **Legível** |
 
-**Consequência prática:** um símbolo de turbina/hélice não pertence a esta marca.
-Já foi tentado e destoa — parece ventilador, roda de cassino ou hélice genérica, e
-não conversa com nenhum dos quatro produtos. Se algum prompt devolver pás girando,
-ele está errado.
+**Conclusão: um rotor literal não sobrevive a 16px.** Três ou cinco pás dentro de
+um círculo perdem a leitura quando o ícone tem 16 pixels de lado — viram mancha.
+O que sobrevive é a letra **T**, que é o inicial do nome e tem silhueta simples.
+
+O caminho que resolve as duas coisas: **um T cujas pontas da barra são pás de
+turbina.** Em 256px lê-se "T com movimento"; em 16px lê-se "T". É o `HF.svg`.
+
+### O que a marca é hoje
+
+O `html/icon.svg` em produção é o ícone `layers` do Lucide (losango sólido + dois
+chevrons) sobre tile `#A78BFA`. Funciona, mas é genérico. O mesmo path aparece no
+navbar (linha 560) e no rodapé (linha 756) do `index.html`.
+
+Os quatro produtos repetem o sistema — tile arredondado colorido + glifo escuro
+`#0D1117`, mudando só a cor e o desenho: Fit `#22C55E` (letra T), Barber `#8B5E34`
+(tesoura), Academia `#22C55E` (barras), Mercado `#6366F1` (sacola).
+
+**Qualquer símbolo novo para a marca-mãe deve manter esse sistema**: tile `rx=14`
+(≈22% do lado) + glifo `#0D1117`. Só o desenho dentro do tile muda.
 
 ---
 
@@ -44,18 +46,13 @@ O fluxo que funciona:
 ```
 IA (símbolo, 1024x1024)
    -> recorte / limpeza de fundo
-   -> vetorização (SVG)  <- aqui o símbolo vira crispal de verdade
+   -> vetorização (SVG)
    -> wordmark "TURBINA SOLUÇÕES" em Inter ExtraBold (texto NUNCA via IA)
    -> render PNG: favicon.ico 16/32/48/64, apple-touch-icon 180, og-image 1200x630
 ```
 
-Motivo: IA erra acento ("SOLUÇÕES" sai "SOLUCOES"/"SOLUCÕES"), erra kerning e não
-desenha circunferência perfeita. Símbolo sim, texto não.
-
-**Aviso importante:** o `icon.svg` atual já é vetor limpo, simétrico e na cor
-exata. Para *reproduzir* essa marca, IA é a ferramenta errada — ela só vai
-introduzir assimetria, borda borrada e hex fora do tom. IA serve para **evoluir**
-o desenho (seção 7), não para refazer o que já está correto.
+Motivo: IA erra acento ("SOLUÇÕES" sai "SOLUCOES"), erra kerning e não desenha
+geometria exata. Símbolo sim, texto não.
 
 ## Constantes da marca (não mudam)
 
@@ -68,101 +65,88 @@ o desenho (seção 7), não para refazer o que já está correto.
 | Fonte do wordmark | Inter, peso 800, letter-spacing -0.03em |
 | Acento dos produtos | Fit `#22C55E` · Barber `#8B5E34` · Mercado `#6366F1` · Academia `#22C55E` |
 
-`#A78BFA` é identidade própria da marca-mãe — não herda cor de produto.
-
 ---
 
-## 1. PROMPT BASE DO SÍMBOLO (o motivo é camadas, não turbina)
+## 1. PROMPT RECOMENDADO — monograma T com pontas de pá
 
-Escreva em **inglês**: Midjourney, Flux e SDXL rendem visivelmente melhor, e o
-resultado não muda por ser outro idioma.
+O conceito: um T cuja barra horizontal tem as pontas afinando e varrendo para
+baixo, como as pontas de uma pá de turbina. A haste é vertical, reta, afinando
+levemente.
 
 ```
-Minimal flat vector logo mark for a software company. A single abstract
-symbol of three stacked layers: a solid diamond shape at the top, with two
-evenly spaced V-shaped chevrons of identical thickness below it, the whole
-thing perfectly aligned and centered. Generous negative space between the
-layers.
+Minimal flat vector app-icon mark for a software company. A bold geometric
+monogram of the capital letter T: a horizontal crossbar whose two ends taper
+and sweep downward like the tips of turbine blades, with a vertical stem
+slightly narrower at the bottom, centered beneath the crossbar. Perfectly
+symmetrical, even visual weight between crossbar and stem.
 
-Single flat color for the symbol: dark charcoal #0D1117.
-Tile behind it: one flat solid lavender purple #A78BFA, rounded square with
-corner radius about 22% of its side.
-Background outside the tile: one flat solid pure white #FFFFFF, uniform.
+The T is one single flat dark charcoal, exactly #0D1117.
+The T sits inside a filled rounded square tile of one single flat lavender
+purple, exactly #A78BFA.
+Outside the tile: one flat solid pure white #FFFFFF, completely uniform.
 
-Composition: tile centered on a square 1:1 canvas with about 6% empty margin
-on all sides. The glyph occupies about 60% of the tile width.
+Composition: rounded square tile, corner radius about 22% of its side,
+centered on a square 1:1 canvas with about 6% empty margin on all sides.
+The T occupies about 62% of the tile width and is perfectly centered.
 
-Strictly flat 2D vector, crisp clean edges, geometric and symmetrical.
+Strictly flat 2D vector, crisp clean edges, geometric precision, solid fills,
+uniform stroke thickness.
 
 No gradients. No shading. No 3D. No bevel. No drop shadow. No glow.
-No outer outline. No texture. No text. No letters. No words. No numbers.
-No mockup. No device frame. No watermark. No signature.
+No outer outline. No texture. No mockup. No device frame. No watermark.
+No full turbine rotor. No propeller. No fan wheel. No pinwheel. No spiral.
 
-App icon design, simple enough to stay perfectly legible when scaled down to
-a 16x16 pixel favicon.
+Simple enough to stay perfectly legible when scaled down to a 16x16 pixel
+favicon.
 ```
 
-### Negative prompt (campo `--no` do Midjourney, ou negative no Flux/SDXL)
+### Negative prompt (`--no` do Midjourney, ou negative no Flux/SDXL)
 
 ```
-text, letters, words, numbers, typography, watermark, signature, gradient,
-gradient mesh, 3d, render, realistic, photo, bevel, emboss, drop shadow,
-glow, neon, texture, grain, noise, thin lines, fine detail, hairline,
-turbine, propeller, fan blades, pinwheel, spiral, multiple symbols, collage,
-grid, frame, border, mockup, device, busy, cluttered, asymmetric, blurry,
-low contrast
+turbine rotor, propeller, fan wheel, fan blades, pinwheel, spiral, helix,
+gradient, gradient mesh, 3d, render, realistic, photo, bevel, emboss,
+drop shadow, glow, neon, texture, grain, noise, thin lines, fine detail,
+hairline, serif letter, lowercase, other letters, words, numbers, watermark,
+signature, mockup, device, busy, cluttered, asymmetric, blurry, low contrast
 ```
 
-Repare que `turbine, propeller, fan blades, pinwheel` estão no negative de
-propósito: é o erro mais provável de acontecer de novo.
-
-### Variações — troque só o trecho do motivo
-
-- **Camadas empilhadas (a marca atual)** — `a solid diamond on top with two evenly spaced V-shaped chevrons below it`
-- **Monograma T em camadas** — `a bold geometric letter T built from three stacked horizontal layers`
-- **Camadas em isométrico** — `three identical flat rhombus plates stacked with even spacing, seen at a slight isometric angle`
-- **Três placas com contorno** — `three stacked chevron layers, the top one solid and the two below as thick outlines`
-
-### Por que "16x16" aparece no prompt
-
-É o teste que elimina 90% dos candidatos. Se o símbolo precisa de detalhe fino
-para ser entendido, ele morre no favicon. Formas grossas + vazio generoso = sobrevive.
+`turbine rotor, propeller, fan wheel, pinwheel` estão no negative de propósito:
+é o erro mais provável. O T tem que ser um T, não um cata-vento.
 
 ---
 
 ## 1-B. Versão dedicada — GPT Image (ChatGPT)
 
 `gpt-image-1` não aceita negative prompt nem flags: as exclusões vão **em prosa**
-("Do not include..."), e ele obedece bem. Também é multilíngue — aceita português
-sem perda. Mantenha em inglês só por consistência.
-
-Cole isto no ChatGPT **em uma mensagem só**:
+("Do not include..."). Cole isto no ChatGPT **em uma mensagem só**:
 
 ```
 Create exactly one single square app-icon image for a software company.
 
-Subject: a flat minimal glyph of three stacked layers. At the top, a solid
-diamond shape. Below it, two evenly spaced V-shaped chevrons of identical
-thickness, aligned to the same width as the diamond, receding downward. The
-whole glyph is perfectly centered and symmetrical, with generous empty space
-between the layers.
+Subject: a bold geometric monogram of the capital letter T. The crossbar is a
+horizontal bar whose two ends taper and sweep downward like the tips of turbine
+blades. The stem is a vertical bar, slightly narrower at the bottom, centered
+beneath the crossbar. The letter is perfectly symmetrical, with even visual
+weight between the crossbar and the stem.
 
-Colors: the glyph is one single flat dark charcoal, exactly #0D1117. It sits
+Colors: the letter T is one single flat dark charcoal, exactly #0D1117. It sits
 inside a filled rounded square tile of one single flat lavender purple, exactly
 #A78BFA. Outside the tile, the background is one flat solid pure white #FFFFFF,
 completely uniform.
 
 Composition: a rounded square tile whose corner radius is about 22% of its side.
 The tile is centered on a square 1:1 canvas with about 6% empty margin on all
-sides. The glyph occupies about 60% of the tile width.
+sides. The letter T occupies about 62% of the tile width and is perfectly centered.
 
 Style: flat 2D vector, like a professional SVG app icon. Crisp edges, geometric
-precision, solid fills, uniform stroke thickness, strict symmetry.
+precision, solid fills, strict symmetry, uniform stroke thickness.
 
-Do not include any text, letters, words, numbers, or typography of any kind.
+Do not include any letters, words, numbers or typography other than the single
+capital letter T.
 Do not include gradients, shading, highlights, 3D, bevel, emboss, perspective,
 drop shadow, glow, or an outer outline around the tile, texture, grain, or noise.
-Do not include any turbine, propeller, fan blade, pinwheel or spiral shape.
+Do not include a full turbine rotor, a propeller, a fan wheel, fan blades, a
+pinwheel, a spiral or any wheel with several blades.
 Do not include a watermark, a signature, a logo mockup, a business card, a device
 frame, a presentation board, a grid or collage of variations, or any decorative
 background element.
@@ -182,139 +166,85 @@ this prompt, and do not ask clarifying questions — generate the image now.
 antes de gerar e perde as exclusões. É a última linha do bloco acima, não remova.
 
 **"exactly one single"** + **"no grid or collage"** — o comportamento padrão dele é
-devolver grade 2x2 de variações e um mockup em camiseta/cartão de visita. Essas duas
-frases cortam isso.
+devolver grade 2x2 de variações e um mockup em camiseta/cartão de visita.
 
-**"square 1:1 canvas"** — sem isso ele entrega paisagem. No app do ChatGPT vale
-escrever "quadrada" também.
+**"square 1:1 canvas"** — sem isso ele entrega paisagem.
 
-**Por que o fundo externo é branco puro:** o `icon.svg` real não tem fundo — só o
-tile roxo com cantos transparentes. Pedindo o branco chapado, é possível remover o
-fundo depois com um simples key de cor (nem o tile `#A78BFA` nem o glifo `#0D1117`
-são brancos, então o recorte sai limpo). Se pedir fundo escuro, o glifo e o fundo
-viram a mesma cor e não há como separar.
+**Por que o fundo externo é branco puro:** o ícone real não tem fundo — só o tile
+roxo com cantos transparentes. Pedindo branco chapado, dá para remover o fundo
+depois com um key de cor simples (nem `#A78BFA` nem `#0D1117` são brancos). Com
+fundo escuro, o glifo e o fundo viram a mesma cor e não há como separar.
 
-Transparência: o ChatGPT não dá canal alfa confiável. Via API, `gpt-image-1` tem
-`background: "transparent"` + `output_format: "png"` — aí sai com alfa real.
-
-Sobre texto: o `gpt-image-1` é bem melhor com tipografia que o DALL·E 3 — o lockup
-fica viável como referência. Ainda erra acento; o "Õ" de "SOLUÇÕES" é o ponto de
-falha típico. Confira letra por letra.
+**Risco específico deste prompt:** o `gpt-image-1` lê "turbine blade tips" e pode
+converter o T inteiro num rotor. Se acontecer, remova a menção a "turbine blades" e
+peça só "a bold geometric T with tapered ends that curve slightly downward".
 
 ---
 
 ## 2. PROMPT DO LOGO COMPLETO (lockup)
 
-Use quando quiser **uma referência visual** de como símbolo + nome se relacionam.
-O arquivo final ainda deve ser montado em SVG.
+Referência de proporção — o arquivo final deve ser montado em SVG.
 
 ```
 Minimal flat vector logo lockup for a software company called TURBINA.
 Left: a small app-icon tile, rounded square with corner radius about 22% of
 its side, filled flat lavender purple #A78BFA, containing a dark charcoal
-#0D1117 glyph of three stacked layers — a solid diamond on top with two
-evenly spaced V-shaped chevrons below.
+#0D1117 monogram of the capital letter T whose crossbar ends taper and sweep
+downward like turbine blade tips.
 
 Right: the wordmark "TURBINA" in extra-bold geometric sans-serif
-(Inter ExtraBold / Poppins ExtraBold style), tight letter spacing, all
-caps, lavender purple #A78BFA.
+(Inter ExtraBold style), tight letter spacing, all caps, lavender purple #A78BFA.
 
-Below the wordmark, a small lighter-grey line reading "SOLUÇÕES" in
-medium weight, uppercase, wide letter spacing.
+Below the wordmark, a small lighter-grey line reading "SOLUÇÕES" in medium
+weight, uppercase, wide letter spacing.
 
-Background: flat solid dark #0D1117. Horizontal composition, generous
-margin. Strictly flat 2D vector. No gradients, no 3D, no shadow, no glow,
-no texture, no mockup, no turbine or propeller shapes, no extra decoration.
-```
-
-Aviso: mesmo Ideogram e GPT-Image vão errar "SOLUÇÕES" com alguma frequência.
-Considere a saída como **referência de proporção**, não como arquivo final.
-
----
-
-## 3. PROMPT DE APP ICON (iOS / Android / PWA)
-
-```
-Flat vector app icon, 1024x1024, rounded square tile with corner radius
-about 22% of the side. Solid lavender purple #A78BFA tile. Centered on
-the tile, a dark charcoal #0D1117 glyph of three stacked layers: a solid
-diamond on top with two evenly spaced V-shaped chevrons of identical
-thickness below it, occupying about 60% of the tile width and perfectly
-symmetrical.
-
-Background outside the tile: flat solid pure white #FFFFFF.
-Flat 2D, crisp vector edges. No gradient, no gloss, no 3D, no inner
-shadow, no drop shadow, no border, no text, no letters, no mockup, no
-device frame, no turbine or propeller shapes.
+Background: flat solid dark #0D1117. Horizontal composition, generous margin.
+Strictly flat 2D vector. No gradients, no 3D, no shadow, no glow, no texture,
+no mockup, no full turbine rotor, no extra decoration.
 ```
 
 ---
 
-## 4. Adaptadores por ferramenta
-
-Cole o prompt base da seção 1 e ajuste só o final.
+## 3. Adaptadores por ferramenta
 
 **Midjourney (v7)**
 ```
-<prompt base> --ar 1:1 --style raw --stylize 100 --no text, letters, gradient, 3d, shadow, mockup, watermark, turbine, propeller, fan blades
+<prompt base da secao 1> --ar 1:1 --style raw --stylize 100 --no turbine rotor, propeller, fan wheel, pinwheel, spiral, gradient, 3d, shadow, mockup, watermark
 ```
-`--style raw` e `--stylize 100` (baixo) são o que impedem o MJ de "artisticar"
-um logo. Estilização alta enche de detalhe e destrói o uso em 16px.
+`--style raw` e `--stylize 100` (baixo) impedem o MJ de "artisticar". Estilização
+alta enche de detalhe e destrói o uso em 16px.
 
 **Flux / SDXL / ComfyUI (local)**
-- CFG 4.5–6 (alto demais satura e cria detalhe fino)
-- Steps 28–35
-- Sampler `dpmpp_2m` + scheduler `karras`
-- Resolução 1024x1024 (não 512 — símbolo geométrico precisa de resolução)
-- Coloque o negative prompt no nó de negative, não no positivo
+- CFG 4.5–6 · steps 28–35 · `dpmpp_2m` + `karras` · 1024x1024
+- Negative no nó de negative, não no positivo
 
-**DALL·E 3 / GPT Image / Gemini**
-Aceita português, mas mantenha em inglês pela consistência do vocabulário visual.
-Peça explicitamente: *"apenas o símbolo, não gere variações em grade"*.
-Para GPT Image, use o bloco pronto da **seção 1-B** — ele é mais específico do que
-adaptar o prompt base.
+**DALL·E 3 / GPT Image / Gemini** — para GPT Image use o bloco pronto da seção 1-B.
 
-**Ideogram** — o melhor para o lockup com texto (acentos inclusos no v3).
-Ainda assim, confira "SOLUÇÕES" letra por letra.
+**Ideogram** — melhor para o lockup com texto. Ainda assim confira "SOLUÇÕES".
 
-**Recraft** — se for usar nuvem, é o mais indicado: gera **SVG de verdade**,
-o que pula a etapa de vetorização.
+**Recraft** — gera SVG de verdade, pula a vetorização.
 
 ---
 
-## 5. Checklist depois de gerar
+## 4. Checklist depois de gerar
 
-1. Reduza para 32x32 e depois 16x16. Continua reconhecível? Se não, descarte.
-2. Veja em escala de cinza. Se depende só de cor para ser entendido, o símbolo é fraco.
-3. Confira se o símbolo é simétrico de verdade (gerador quase sempre entrega levemente torto).
-4. Confira se o hex é exatamente `#A78BFA` / `#0D1117` — gerador quase sempre
-   entrega um tom vizinho. Ajuste na mão antes de usar.
-5. Teste sobre `#0D1117` **e** sobre `#FFFFFF`.
-6. Só então vetorize → `html/icon.svg` → regenere o conjunto (ver README > "Regenerar os assets").
-
----
-
-## 6. Se o objetivo for só ter o favicon funcionando
-
-Não use IA. O `html/icon.svg` já é o certo: vetor, simétrico, na cor exata, e
-sobrevive a 16px. Um gerador de imagem vai *piorar* esse arquivo, não melhorar.
-
-IA entra apenas quando a decisão for **redesenhar** a marca — e aí o motivo tem que
-continuar sendo camadas, porque é isso que amarra os quatro produtos entre si.
+1. Rasterize de verdade em 16x16 (não escale o SVG — abra num viewport de 16px).
+   Continua legível? Se não, descarte. Foi exatamente este passo que reprovou todos
+   os rotores.
+2. Confira se o hex é exatamente `#A78BFA` / `#0D1117` — gerador quase sempre
+   entrega um tom vizinho.
+3. Confira simetria (gerador quase sempre entrega levemente torto).
+4. Teste sobre `#0D1117` **e** sobre `#FFFFFF`.
+5. Só então vetorize → `html/icon.svg` → regenere todo o conjunto (ver README >
+   "Regenerar os assets").
 
 ---
 
-## 7. Se quiser evoluir o desenho (sem trocar o motivo)
+## 5. Composição final e atalho sem IA
 
-Três direções que continuam dentro do sistema atual:
+O wordmark nunca sai da IA: "TURBINA" + "SOLUÇÕES" em Inter ExtraBold, montado em
+SVG. A IA fornece só o símbolo.
 
-- **Camadas em isométrico** — as três placas ganham leve perspectiva, dando
-  profundidade sem sair do flat. Mais "software" que o atual.
-- **Camadas com o vão maior** — aumentar o espaço entre as placas melhora a
-  leitura em 16px, hoje o chevron de baixo quase encosta no do meio.
-- **Monograma T em camadas** — o T construído por três faixas horizontais: fica
-  mais próprio da Turbina que o glifo genérico de camadas (que é idêntico ao
-  ícone `layers` do Lucide/Feather, usado por milhares de projetos).
-
-A terceira é a que mais resolve o problema real: o glifo atual **não é original**,
-é o `layers` do Lucide. Funciona, mas não distingue a marca de nada.
+E se o objetivo for apenas ter o favicon redondo e funcionando hoje, o
+`tools/logo-drafts/HF.svg` já é vetor limpo, simétrico, na cor exata, e passa no
+teste de 16px. Não precisa de gerador de imagem nenhum.
