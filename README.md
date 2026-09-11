@@ -37,6 +37,40 @@ Fonte única de verdade: `CLAUDE.md` na raiz dos projetos.
 `--brand` é identidade própria da marca-mãe e não herda cor de produto.
 Botão primário: texto escuro (`#0D1117`) sobre fundo colorido — nunca branco.
 
+## Identidade visual — dois usos, um desenho
+
+O símbolo é o **T** da marca. A geometria é **idêntica** nos arquivos do cliente e nos
+deste repositório; o que muda entre as duas versões é **onde a cor fica**.
+
+```
+tile      <rect x=60 y=60 880x880 rx=194 ry=194>   (88% do canvas — proporção do cliente)
+barra do T  360,227 -> 640,227 -> 715,258 -> 788,378 -> 733,438 -> 640,359
+            -> 360,359 -> 267,438 -> 212,378 -> 285,258 -> 360,227
+haste       425,359 -> 575,359 -> 555,773 -> 445,773
+```
+
+O cliente decidiu dois usos distintos:
+
+| Uso | Fonte | Composição |
+|---|---|---|
+| **Favicon / app icon** | `tools/icon.svg` -> `favicon.ico`, `favicon-32.png`, `apple-touch-icon.png`, `html/icon.svg` | tile `#A78BFA` + letra `#0D1117` (v1) |
+| **Marca do site** | inline nos 4 pontos dos HTMLs + `tools/brand.svg` + `tools/og.html` | tile `#0D1117` + letra `#A78BFA` (v2) |
+
+Nos HTMLs o tile vem do **CSS** (`.nav-icon` e `.brand-icon` com `background: var(--bg)`),
+nunca de um `<rect>` — o favicon não tem CSS, então lá o tile é `<rect>`. Como a página
+também é `#0D1117`, **no site o tile se funde com o fundo e o que se lê é o T roxo** com o
+glow do `box-shadow`. É o efeito pretendido (a letra é o destaque, não o quadrado).
+
+Os 4 arquivos originais do cliente ficam em `files/` e **não** entram como fonte: eles usam
+gradiente (`#B4A0FC->#6D28D9` no tile do v1, `#C4B5FD->#7C3AED` na letra do v2) e um
+`<rect fill="#FFFFFF">` cobrindo o canvas — era esse branco que virava quadradinho branco no
+favicon. O repositório publica as mesmas composições com o token `#A78BFA` chapado. Os PNGs
+do cliente foram render do SVG correspondente e não são usados (o vetor escala para 16px sem
+borrar).
+
+Pontos onde a marca aparece inline (mesma geometria nos 4): navbar 30px e rodapé 24px do
+`index.html`, `.brand-icon` 30px de `termos.html` e `privacidade.html`.
+
 ## Estrutura
 
 ```
@@ -54,9 +88,12 @@ Botão primário: texto escuro (`#0D1117`) sobre fundo colorido — nunca branco
 │   ├── apple-touch-icon.png
 │   ├── icon.svg
 │   └── og-image.png        # 1200x630, Open Graph / Twitter Card
-└── tools/                  # apenas geradores — NÃO vão para o container
-    ├── og.html             # fonte do og-image.png
-    └── icon.svg            # fonte dos favicons
+├── tools/                  # apenas geradores — NÃO vão para o container
+│   ├── og.html             # fonte do og-image.png
+│   ├── icon.svg            # símbolo v1 — fonte dos favicons
+│   └── brand.svg           # símbolo v2 — marca do site, asset autônomo
+├── files/                  # originais do cliente (2 desenhos x 2 formatos); não publicados
+└── BRAND-PROMPTS.md        # histórico dos testes de símbolo
 ```
 
 ## Links institucionais
@@ -123,6 +160,8 @@ Depois, com Pillow: recortar `og.png` → `og-image.png`; `icon.png` →
 - O Cloudflare injeta um bloco gerenciado no topo do `robots.txt`; o conteúdo do
   repositório é anexado ao final.
 - HTML sai com `Cache-Control: no-cache` — atualização é imediata.
+- `/og-image.png` é referenciado nas metatags como `?v=3` (mudou junto com a marca do site).
+  Ao regerar o og-image, **suba esse `?v=`**, senão o edge do Cloudflare segue entregando o antigo.
 - Ícones usam nome fixo, por isso ficam com cache curto (`1h`, `must-revalidate`) **e são
   versionados no HTML** (`/favicon.ico?v=2`). Ao mexer em qualquer ícone, **suba o `?v=` nos três
   HTMLs** (`index.html`, `termos.html`, `privacidade.html`); senão o edge do Cloudflare segue
