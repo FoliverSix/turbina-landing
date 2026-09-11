@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="Turbina Soluções">
+  <title>Turbina Soluções</title>
+  <rect x="60" y="60" width="880" height="880" rx="194" ry="194" fill="#A78BFA"/>
+    <path fill="#0D1117" d="M 360,227 L 640,227
+    Q 715,258 788,378
+    Q 733,438 640,359
+    L 360,359
+    Q 267,438 212,378
+    Q 285,258 360,227 Z"/>
+    <path fill="#0D1117" d="M 425,359 L 575,359 L 555,773 L 445,773 Z"/>
+</svg>

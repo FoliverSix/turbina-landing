@@ -115,6 +115,45 @@ signature, mockup, device, busy, cluttered, asymmetric, blurry, low contrast
 
 ---
 
+### 1-A. Resultado obtido (e o que faltou corrigir)
+
+O prompt da seção 1 foi rodado e devolveu `files/modern_v1_gradient_tile.svg` e
+`files/modern_v2_gradient_letter.svg`. **A geometria saiu correta:**
+
+| Medida | Valor obtido | Especificado |
+|---|---|---|
+| Centro do T | x = 500 | 500 (centro do tile) |
+| Margens internas | 152 esq/dir · 167 topo/base | simétricas |
+| Largura do T | 65,5% do tile | ~62% |
+| Raio do canto | `rx=194` = 22,0% do lado | ≈22% |
+| Haste | afinando de 150 → 130 de largura | — |
+
+**Dois defeitos de cor, os dois fáceis de corrigir:**
+
+1. **Fundo branco sólido.** Os dois arquivos têm `<rect fill="#FFFFFF">` cobrindo
+   o canvas inteiro. Num favicon isso vira um quadrado branco em volta do tile —
+   visível em 48px e 32px. O arquivo final não pode ter essa camada.
+2. **Gradiente no lugar das cores chapadas.** A v1 usa `#B4A0FC → #6D28D9` no
+   tile; a v2 usa `#C4B5FD → #7C3AED` na letra. **`#A78BFA` não aparece em nenhum
+   dos dois.** Gradiente não é token do Design System e em 16px não se vê mesmo.
+
+**E um problema de sistema na v2:** tile `#0D1117` + glifo colorido inverte o
+sistema da marca. O site inteiro tem fundo `#0D1117` — o tile escuro desaparece e
+sobra uma letra roxa solta. Os quatro produtos usam tile colorido + glifo escuro;
+a v2 seria a exceção.
+
+**Resultado:** `tools/logo-drafts/icon-clean.svg` — o mesmo desenho, tile
+`#A78BFA` chapado, glifo `#0D1117` chapado, fundo transparente, sem metadados
+C2PA. Comparativo em `tools/logo-drafts/preview-favicon.png`. A versão limpa lê
+como T em 48, 32 e 16px, com melhor contraste que a original.
+
+Lição para a próxima geração: o gerador acertou o desenho e errou a cor. Nos
+prompts, pedir **"one single flat solid fill, exactly #A78BFA, no gradient"** e
+**"transparent background, no white backdrop layer"** explícito — ele adiciona
+grade e fundo branco por padrão.
+
+---
+
 ## 1-B. Versão dedicada — GPT Image (ChatGPT)
 
 `gpt-image-1` não aceita negative prompt nem flags: as exclusões vão **em prosa**

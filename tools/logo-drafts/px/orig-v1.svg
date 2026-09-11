@@ -1,0 +1,7 @@
+<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#B4A0FC"/><stop offset="100%" stop-color="#6D28D9"/></linearGradient></defs><rect x="0" y="0" width="1000" height="1000" fill="#FFFFFF"/><rect x="60" y="60" width="880" height="880" rx="194" ry="194" fill="url(#g)"/><path fill="#0D1117" d="
+    M 360,227 L 640,227
+    Q 715,258 788,378
+    Q 733,438 640,359
+    L 360,359
+    Q 267,438 212,378
+    Q 285,258 360,227 Z"/><path fill="#0D1117" d="M 425,359 L 575,359 L 555,773 L 445,773 Z"/></svg>
