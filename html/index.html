@@ -116,11 +116,11 @@
       box-shadow: 0 0 20px rgba(167,139,250,0.3);
     }
     .nav-menu { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
-    .nav-menu a {
+    .nav-menu a:not(.nav-cta) {
       font-size: 0.875rem; color: var(--text-2); font-weight: 500;
       transition: color 0.2s;
     }
-    .nav-menu a:hover { color: var(--text); }
+    .nav-menu a:not(.nav-cta):hover { color: var(--text); }
     .nav-cta {
       display: inline-flex; align-items: center; gap: 0.4rem;
       padding: 0.5rem 1.1rem; border-radius: var(--r-sm);
