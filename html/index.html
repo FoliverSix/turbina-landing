@@ -55,7 +55,9 @@
       /* Text */
       --text: #E8EDF3;
       --text-2: #8B95A1;
-      --text-3: #5A6474;
+      /* #5A6474 dava 3,16:1 no bg e 2,54:1 no badge - abaixo do AA (4,5:1).
+         #8492A6 passa em todos os fundos da pagina (pior caso 4,81:1). */
+      --text-3: #8492A6;
 
       /* Product accents */
       --fit: #22C55E;
@@ -66,6 +68,7 @@
       --academia: #22C55E;
       --academia-bg: rgba(34,197,94,0.08);
       --mercado: #6366F1;
+      --mercado-soft: #818CF8;   /* texto sobre fundo escuro: 5,37:1 (o #6366F1 dava 3,58:1) */
       --mercado-bg: rgba(99,102,241,0.08);
 
       /* Radius */
@@ -367,7 +370,7 @@
     }
     .badge-live { background: rgba(34,197,94,0.1); color: #22C55E; }
     .badge-soon { background: rgba(255,255,255,0.05); color: var(--text-3); }
-    .badge-dev { background: var(--mercado-bg); color: var(--mercado); }
+    .badge-dev { background: var(--mercado-bg); color: var(--mercado-soft); }
 
     .prod-cta {
       font-size: 0.85rem; font-weight: 600;

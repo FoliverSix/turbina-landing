@@ -32,10 +32,34 @@ Fonte única de verdade: `CLAUDE.md` na raiz dos projetos.
 | `--brand` (Turbina Soluções) | `#A78BFA` |
 | `--fit` / `--academia` | `#22C55E` |
 | `--barber` / `--barber-soft` | `#8B5E34` / `#D4A574` |
-| `--mercado` | `#6366F1` |
+| `--mercado` / `--mercado-soft` | `#6366F1` / `#818CF8` |
 
 `--brand` é identidade própria da marca-mãe e não herda cor de produto.
 Botão primário: texto escuro (`#0D1117`) sobre fundo colorido — nunca branco.
+
+### Contraste (WCAG AA)
+
+AA exige **4,5:1** para texto normal e **3:1** para texto grande (24px+, ou 18,66px+ em negrito).
+Quem mede é `tools/contraste.py`, que abre a página no Chromium via Playwright e lê a cor final de
+cada elemento já com a cascata resolvida — não há como achar isso lendo o CSS na mão, porque
+especificidade e fundo translúcido mudam o resultado.
+
+O token `--text-3` do Design System (`#5A6474`) **não alcança AA** sobre fundo escuro: dá 3,16:1
+no `--bg`, 2,89:1 no `--surface` e **2,54:1** dentro do `.badge-soon` — cujo fundo
+`rgba(255,255,255,0.05)` composto sobre a surface fica mais claro que a própria surface, e é o
+pior caso da página. O texto do badge do Mercado, com `--mercado`, dava 3,58:1.
+
+O que esta landing mudou:
+
+| Onde | Antes | Agora | Resultado |
+|---|---|---|---|
+| `--text-3` | `#5A6474` | `#8492A6` | passa em todos os fundos da página (pior caso 4,81:1) |
+| `.badge-dev` | `var(--mercado)` | `var(--mercado-soft)` = `#818CF8` | 5,37:1 |
+| `.nav-menu a` | pintava o `.nav-cta` | `.nav-menu a:not(.nav-cta)` | CTA volta a `#0D1117` sobre `#A78BFA` = 6,95:1 |
+
+O `--text-3` do Design System em `CLAUDE.md` **não** foi alterado: os outros produtos continuam
+com `#5A6474`. Como AA obriga a subir o cinza apagado até perto do `--text-2` (`#8B95A1`, 6,23:1 no
+bg), a hierarquia entre "secundário" e "apagado" fica quase nula — é o preço de passar em AA.
 
 ## Identidade visual — dois usos, um desenho
 
@@ -172,6 +196,12 @@ Depois, com Pillow: recortar `og.png` → `og-image.png`; `icon.png` →
   `content-length` da resposta **limpa** com o do arquivo local e olhe `cf-cache-status` + `Age` —
   `HIT` com `Age` grande é cópia velha. Se precisar forçar agora, purgue aquela URL no painel do
   Cloudflare (Caching → Configuration → Purge by URL).
+- **Auditoria de contraste: rode `tools/contraste.py`, não o Chrome por linha de comando.** No
+  Windows, `chrome.exe --headless=new --dump-dom` (e `--screenshot`) devolve **0 bytes** com uma
+  sessão do Chrome aberta: o lançamento é entregue à instância já existente e o processo sai
+  `rc=0` sem produzir nada — e o mesmo acontece com `msedge.exe` e com o Chromium do Playwright,
+  porque executáveis GUI não anexam stdout ao pipe do pai. Playwright fala CDP por pipe e devolve o
+  resultado de `evaluate()` já serializado.
 - **NUNCA valide asset com `?cb=<timestamp>`.** Cada query string é uma chave de cache nova, então o
   Cloudflare sempre vai à origem e devolve o arquivo certo — foi assim que uma primeira verificação
   "passou" com o favicon antigo preso no edge. Valide sempre com a URL exata que o HTML usa.
